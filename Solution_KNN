@@ -9,14 +9,15 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split
-###import warnings
-###warnings.filterwarnings('ignore')
+import warnings
+warnings.filterwarnings('ignore')
 import sklearn.neighbors
 from sklearn.neighbors import KNeighborsClassifier
 
 df = pd.read_csv('Heart_Disease_Prediction.csv')
 df.corr()
 plt.matshow(df.corr())
+plt.colorbar()
 
 df.hist()
 
@@ -31,10 +32,20 @@ x_test = sc_x.transform(x_test)
 import math
 math.sqrt(len(y_test))
 
+### KNN METHOD
 classifier = KNeighborsClassifier(n_neighbors = 9, p = 2, metric = 'euclidean')
 classifier.fit(x_train,y_train)
 
 y_pred = classifier.predict(x_test)
 print(y_pred)
 
+print(accuracy_score(y_test,y_pred))
+
+### SVM METHOD
+from sklearn import svm
+clf = svm.SVC(kernel='rbf')
+clf.fit(x_train,y_train)
+y_pred = clf.predict(x_test)
+y_pred = clf.predict(x_test)
+print(y_pred)
 print(accuracy_score(y_test,y_pred))
